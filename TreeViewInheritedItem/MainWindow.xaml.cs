@@ -18,10 +18,8 @@ namespace TreeViewInheritedItem
             Locator.CurrentMutable.Register(() => new PersonView(), typeof(IViewFor<Person>));
             Locator.CurrentMutable.Register(() => new PetView(), typeof(IViewFor<Pet>));
             //NB. ! Do not use 'this.OneWayBind ... ' for the top level binding to the tree view
-            //This will let the WPF framework bind to the hierarchical Data Template
-            //This other method will give a simple list of the top level items
+            //this.OneWayBind(ViewModel, vm => vm.Family, v => v.FamilyTree.ItemsSource);
             FamilyTree.ItemsSource = ViewModel.Family;
-
             //Add some commands to prove dynamic capability
             this.Bind(ViewModel, vm => vm.NewName, v => v.NewName.Text);
             this.BindCommand(ViewModel, vm => vm.AddPerson, v => v.AddPerson);

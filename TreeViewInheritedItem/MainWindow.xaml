@@ -18,6 +18,10 @@
         </StackPanel>
         <TreeView Name="FamilyTree" >
             <TreeView.Resources>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                </Style>
                 <HierarchicalDataTemplate DataType="{x:Type local:TreeItem}" ItemsSource="{Binding Children}">
                     <reactiveUi:ViewModelViewHost ViewModel="{Binding ViewModel}"/>
                 </HierarchicalDataTemplate>

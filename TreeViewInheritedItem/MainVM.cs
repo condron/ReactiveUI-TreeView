@@ -19,12 +19,20 @@ namespace TreeViewInheritedItem
             _addPerson = ReactiveCommand.Create();
             _addPerson.Subscribe(_ =>
             {
-                SelectedItem?.Children.Add(new Person(NewName));
+                if (SelectedItem == null) return;
+                var p = new Person(NewName);
+                SelectedItem.Children.Add(p);
+                p.IsSelected = true;
+                SelectedItem.IsExpanded = true;
             });
             _addPet = ReactiveCommand.Create();
             _addPet.Subscribe(_ =>
             {
-                SelectedItem?.Children.Add(new Pet(PetName));
+                if (SelectedItem == null) return;
+                var p = new Pet(PetName);
+                SelectedItem.Children.Add(p);
+                p.IsSelected = true;
+                SelectedItem.IsExpanded = true;
             });
         }
 
