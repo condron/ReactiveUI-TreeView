@@ -22,15 +22,38 @@ namespace TreeViewInheritedItem
             get { return _isSelected; }
             set { this.RaiseAndSetIfChanged(ref _isSelected, value); }
         }
-     
 
-        protected TreeItem( IEnumerable<TreeItem> children = null)
+        private TreeItem _parent;
+
+        protected TreeItem(IEnumerable<TreeItem> children = null)
         {
 
-            Children = new ReactiveList<TreeItem>(children ?? new ReactiveList<TreeItem>());
+            Children = new ReactiveList<TreeItem>();
+            if (children == null) return;
+            foreach (var child in children)
+            {
+                AddChild(child);
+            }
         }
 
         public abstract object ViewModel { get; }
         public ReactiveList<TreeItem> Children { get; }
+
+        public void AddChild(TreeItem child)
+        {
+            child._parent = this;
+            Children.Add(child);
+        }
+
+        public void ExpandPath()
+        {
+            IsExpanded = true;
+            _parent?.ExpandPath();
+        }
+        public void CollapsePath()
+        {
+            IsExpanded = false;
+            _parent?.CollapsePath();
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace TreeViewInheritedItem
             this.Bind(ViewModel, vm => vm.PetName, v => v.PetName.Text);
             this.BindCommand(ViewModel, vm => vm.AddPet, v => v.AddPet);
             this.WhenAnyValue(x => x.FamilyTree.SelectedItem).BindTo(this, x => x.ViewModel.SelectedItem);
+            this.BindCommand(ViewModel, vm => vm.Collapse, v => v.Collapse);
         }
         object IViewFor.ViewModel
         {

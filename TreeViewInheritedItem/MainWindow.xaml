@@ -11,6 +11,7 @@
         <StackPanel Orientation="Horizontal">
             <Button Name="AddPerson" Width="80">Add Person</Button>
             <TextBox Name="NewName" Width="200"></TextBox>
+            <Button Name="Collapse" Width="80">Collapse</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Button Name="AddPet" Width="80">Add Pet </Button>

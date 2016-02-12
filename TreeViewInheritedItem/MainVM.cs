@@ -7,6 +7,7 @@ namespace TreeViewInheritedItem
     {
         private readonly ReactiveCommand<object> _addPerson;
         private readonly ReactiveCommand<object> _addPet;
+        private readonly ReactiveCommand<object> _collapse;
 
         public MainVM()
         {
@@ -21,24 +22,30 @@ namespace TreeViewInheritedItem
             {
                 if (SelectedItem == null) return;
                 var p = new Person(NewName);
-                SelectedItem.Children.Add(p);
+                SelectedItem.AddChild(p);
                 p.IsSelected = true;
-                SelectedItem.IsExpanded = true;
+                p.ExpandPath();
             });
             _addPet = ReactiveCommand.Create();
             _addPet.Subscribe(_ =>
             {
                 if (SelectedItem == null) return;
                 var p = new Pet(PetName);
-                SelectedItem.Children.Add(p);
+                SelectedItem.AddChild(p);
                 p.IsSelected = true;
-                SelectedItem.IsExpanded = true;
+                p.ExpandPath();
+            });
+            _collapse = ReactiveCommand.Create();
+            _collapse.Subscribe(_ =>
+            {
+                SelectedItem?.CollapsePath();
             });
         }
 
         public ReactiveList<TreeItem> Family { get; }
         public ReactiveCommand<object> AddPerson => this._addPerson;
         public ReactiveCommand<object> AddPet => this._addPet;
+        public ReactiveCommand<object> Collapse => this._collapse;
 
         string _newName;
         public string NewName
